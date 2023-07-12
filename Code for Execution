@@ -1,0 +1,17 @@
+Sorce code used in Run Python Script of Power BI :
+
+# 'dataset' holds the input data for this script
+import pandas as pd
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+knn=KNeighborsRegressor()
+X = dataset.drop(['price','x','y','z'],axis=1)
+X=pd.get_dummies(X)
+y=dataset['price']
+features=X.columns
+s = StandardScaler()
+X = s.fit_transform(X)
+X_train,X_test,y_train,y_test = train_test_split(X,y)
+knn.fit(X_train,y_train)
+dataset['prediction']=knn.predict(X)
